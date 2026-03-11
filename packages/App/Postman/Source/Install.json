@@ -1,8 +1,8 @@
 {
   "PackageInformation": {
     "SetupType": "EXE",
-    "SetupFile": "Postman-win64-11.64.7-Setup.exe",
-    "Version": "11.64.7"
+    "SetupFile": "Postman v11.75.3 (x64).exe",
+    "Version": "11.75.3"
   },
   "LogPath": "C:\\ProgramData\\Microsoft\\IntuneManagementExtension\\Logs",
   "InstallTasks": {

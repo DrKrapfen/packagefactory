@@ -17,13 +17,13 @@
       "Operator": "greaterThanOrEqual",
       "Path": "C:\\Program Files\\Zoom\\bin",
       "Type": "File",
-      "VersionValue": "6.6.1.15968"
+      "VersionValue": "6.6.11.23272"
     }
   ],
   "Information": {
     "Categories": [],
     "Description": "Simplified video conferencing and messaging across any device. Phone, Meetings, Chat, Whiteboard and more for your desktop.",
-    "DisplayName": "Zoom Meetings Client 6.6.1.15968 ARM64",
+    "DisplayName": "Zoom Meetings Client 6.6.11.23272 ARM64",
     "InformationURL": "https://explore.zoom.us/en/products/meetings/",
     "PrivacyURL": "https://explore.zoom.us/privacy",
     "PSPackageFactoryGuid": "4d93ae8c-fc17-46dd-bcd6-5b777bd520b0",
@@ -35,7 +35,7 @@
     "SetupFile": "ZoomInstallerFull.msi",
     "SetupType": "MSI",
     "SourceFolder": "Source",
-    "Version": "6.6.1.15968"
+    "Version": "6.6.11.23272"
   },
   "Program": {
     "DeviceRestartBehavior": "suppress",

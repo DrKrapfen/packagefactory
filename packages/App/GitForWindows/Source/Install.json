@@ -4,9 +4,9 @@
   },
   "LogPath": "C:\\ProgramData\\Microsoft\\IntuneManagementExtension\\Logs",
   "PackageInformation": {
-    "SetupFile": "Git-2.51.0.2-64-bit.exe",
+    "SetupFile": "Git-2.52.0-64-bit.exe",
     "SetupType": "EXE",
-    "Version": "2.51.0.2"
+    "Version": "2.52.0"
   },
   "PostInstall": {
     "Copy": [],

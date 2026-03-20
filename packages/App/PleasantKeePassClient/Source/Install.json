@@ -6,7 +6,7 @@
   "PackageInformation": {
     "SetupFile": "Pleasant KeePass Client.exe",
     "SetupType": "EXE",
-    "Version": "7.11.43.0"
+    "Version": "9.1.13.0"
   },
   "PostInstall": {
     "Copy": [],

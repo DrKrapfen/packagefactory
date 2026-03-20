@@ -1,7 +1,7 @@
 {
     "Application": {
         "Architecture": "x64",
-        "Filter": "",
+        "Filter": " ",
         "Language": "de-DE",
         "Name": "Pleasant KeePass Client",
         "Title": "Pleasant KeePass Client"

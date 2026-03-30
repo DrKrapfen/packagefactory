@@ -17,13 +17,13 @@
             "Operator": "greaterThanOrEqual",
             "Path": "C:\\Program Files (x86)\\Pleasant Solutions\\KeePass for Pleasant Password Server",
             "Type": "File",
-            "VersionValue": "9.1.13.0"
+            "VersionValue": "9.1.12.0"
         }
     ],
     "Information": {
         "Categories": [],
         "Description": "Pleasant Password Server is an award-winning multi-user password management tool compatible with KeePass Password Safe and Bruce Schneier\u0027s Password Safe, the most popular password management systems in the world.",
-        "DisplayName": "Pleasant KeePass Client 9.1.13.0 x64",
+        "DisplayName": "Pleasant KeePass Client 9.1.12.0 x64",
         "InformationURL": "https://pleasantpasswords.com/",
         "PrivacyURL": "https://pleasantpasswords.com/privacy-policy",
         "PSPackageFactoryGuid": "7829b9ac-fcfd-4f54-9e54-f4c8604607b2",
@@ -35,7 +35,7 @@
         "SetupFile": "Pleasant KeePass Client.exe",
         "SetupType": "EXE",
         "SourceFolder": "Source",
-        "Version": "9.1.13.0"
+        "Version": "9.1.12.0"
     },
     "Program": {
         "DeviceRestartBehavior": "suppress",

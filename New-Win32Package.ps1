@@ -92,6 +92,15 @@ param (
     [Parameter(Mandatory = $false, HelpMessage = "The path to the working directory to be used when creating packages.")]
     [System.String] $WorkingPath = $([System.IO.Path]::Combine($PSScriptRoot, "output")),
 
+    [Parameter(Mandatory = $false, HelpMessage = "Tenant ID used to refresh the Intune access token immediately before import.")]
+    [System.String] $TenantId,
+
+    [Parameter(Mandatory = $false, HelpMessage = "Entra application (client) ID used to refresh the Intune access token immediately before import.")]
+    [System.String] $ClientId,
+
+    [Parameter(Mandatory = $false, HelpMessage = "Entra application client secret used to refresh the Intune access token immediately before import.")]
+    [System.String] $ClientSecret,
+
     [Parameter(Mandatory = $false, HelpMessage = "Import the package into Microsoft Intune")]
     [System.Management.Automation.SwitchParameter] $Import,
 
@@ -131,6 +140,17 @@ begin {
     $ProgressPreference = "SilentlyContinue"
     $InformationPreference = "Continue"
     $VerbosePreference = "Continue"
+
+    # Force InvariantCulture for the duration of packaging/import. IntuneWin32App 1.5.0's
+    # Invoke-AzureStorageBlobUpload parses the token lifetime with
+    # [DateTimeOffset]::Parse($AccessToken.ExpiresOn.ToString(), [CultureInfo]::InvariantCulture).
+    # On non-US locales (e.g. de-DE) ExpiresOn.ToString() yields "dd.MM.yyyy", which InvariantCulture
+    # misreads with day/month swapped - making a valid token look long-expired. That triggers an
+    # internal 'Connect-MSIntuneGraph -Refresh' (no -ClientID) which, under the app-only client-secret
+    # flow, has no refresh token and falls back to an interactive 'ClientID:' prompt, breaking the
+    # unattended import. Running under InvariantCulture makes ExpiresOn.ToString() round-trip correctly.
+    # (Test-AccessToken is already locale-safe; only the blob upload path is affected.)
+    [System.Threading.Thread]::CurrentThread.CurrentCulture = [System.Globalization.CultureInfo]::InvariantCulture
 }
 
 process {
@@ -409,6 +429,17 @@ process {
                 #region Import the package
                 if ($Import -eq $true) {
                     Write-Information -MessageData "$($PSStyle.Foreground.Cyan)-Import specified. Importing package into tenant"
+
+                    # Refresh the access token immediately before the upload. IntuneWin32App 1.5.0
+                    # tries to silently refresh a near-expiry token during the Azure blob upload via
+                    # 'Connect-MSIntuneGraph -Refresh' (without -ClientID); under the app-only client
+                    # secret flow there is no refresh token, so it falls through to the Interactive
+                    # parameter set and interactively prompts for ClientID, breaking unattended import.
+                    # Reconnecting here hands the upload a fresh (~60 min) token so that path never runs.
+                    if (-not [System.String]::IsNullOrEmpty($TenantId) -and -not [System.String]::IsNullOrEmpty($ClientId) -and -not [System.String]::IsNullOrEmpty($ClientSecret)) {
+                        Write-Information -MessageData "$($PSStyle.Foreground.Cyan)Refreshing Intune access token before import"
+                        Connect-MSIntuneGraph -TenantId $TenantId -ClientId $ClientId -ClientSecret $ClientSecret | Out-Null
+                    }
 
                     # Launch script to import the package
                     Write-Information -MessageData "$($PSStyle.Foreground.Cyan)Create package with: '$PSScriptRoot\scripts\Create-Win32App.ps1'"

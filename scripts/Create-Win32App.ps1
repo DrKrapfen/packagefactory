@@ -62,10 +62,9 @@ process {
         $AppIconFile = $OutFile
     }
     else {
-        # Only if file already exists
-        if (Test-Path -Path $AppIconFile) {
-            $AppIconFile = [System.IO.Path]::Combine((Get-Item $Json).DirectoryName, $AppData.PackageInformation.IconFile)
-        } else {
+        # Build the path to the icon file relative to the manifest; use it only if it exists
+        $AppIconFile = [System.IO.Path]::Combine((Get-Item $Json).DirectoryName, $AppData.PackageInformation.IconFile)
+        if (-not (Test-Path -Path $AppIconFile)) {
             $AppIconFile = $null
         }
     }

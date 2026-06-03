@@ -1,13 +1,13 @@
 {
   "PackageInformation": {
-    "SetupType": "MSI",
-    "SetupFile": "RemoteDesktop_1.2.6873.0_x64.msi",
-    "Version": "1.2.6873.0"
+    "SetupType": "EXE",
+    "SetupFile": "vc_redist.x86.exe",
+    "Version": "14.50.35719.0"
   },
   "LogPath": "C:\\ProgramData\\Microsoft\\IntuneManagementExtension\\Logs",
   "InstallTasks": {
     "StopProcess": [],
-    "ArgumentList": "/package \"#SetupFile\" ALLUSERS=TRUE /quiet /log \"#LogPath\\#LogName.log\""
+    "ArgumentList": "/install /quiet /norestart /log \"#LogPath\\#LogName.log\""
   },
   "PostInstall": {
     "Remove": [],

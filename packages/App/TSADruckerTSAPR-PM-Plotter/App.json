@@ -1,0 +1,61 @@
+{
+  "Application": {
+    "Architecture": "x64",
+    "Filter": " ",
+    "Language": "English",
+    "Name": "TSADruckerInstallierenTSAPR-PM-Plotter",
+    "Title": "TSA Drucker Installieren TSAPR-PM-Plotter"
+  },
+  "Assignments": [
+    {
+      "Target": "AllUsers",
+      "Intent": "available",
+      "Notification": "showAll"
+    }
+  ],
+  "CustomRequirementRule": [],
+  "Dependencies": [],
+  "DetectionRule": [
+    {
+      "Check32BitOn64System": "false",
+      "DetectionMethod": "Existence",
+      "FileOrFolder": "TSAPrinterTSAPR-PM-Plotter.ps1.tag",
+      "Path": "C:\\ProgramData\\Printers",
+      "DetectionType": "exists",
+      "Type": "File"
+    }
+  ],
+  "Information": {
+    "Categories": [
+      "Drucker"
+    ],
+    "Description": "Automatically installes the TSA Printer TSAPR-PM-Plotter",
+    "DisplayName": "TSA Drucker TSAPR-PM-Plotter",
+    "FeaturedApp": false,
+    "InformationURL": "https://tsa.at/de/",
+    "PrivacyURL": "https://tsa.at/de/datenschutzerklaerung/",
+    "PSPackageFactoryGuid": "c89545cc-448c-46c3-8cd1-2b38b04ec2b5",
+    "Publisher": "TSA"
+  },
+  "PackageInformation": {
+    "IconFile": "https://github.com/DrKrapfen/icons/raw/main/companyportal/Printer.png",
+    "OutputFolder": "Package",
+    "SetupFile": "Deploy-Application.exe",
+    "SetupType": "EXE",
+    "SourceFolder": "Source",
+    "Version": "1.0.2"
+  },
+  "Program": {
+    "AllowAvailableUninstall": true,
+    "DeviceRestartBehavior": "suppress",
+    "InstallCommand": "powershell.exe -ExecutionPolicy Bypass -NonInteractive -NoProfile -WindowStyle Hidden -File \"Deploy-Application.ps1\" -DeploymentType Install -DeployMode Silent",
+    "InstallExperience": "user",
+    "InstallTemplate": "powershell.exe -ExecutionPolicy Bypass -NonInteractive -NoProfile -WindowStyle Hidden -File \"Deploy-Application.ps1\" -DeploymentType Install -DeployMode Silent",
+    "UninstallCommand": "powershell.exe -ExecutionPolicy Bypass -NonInteractive -NoProfile -WindowStyle Hidden -File \"Deploy-Application.ps1\" -DeploymentType Uninstall -DeployMode Silent"
+  },
+  "RequirementRule": {
+    "Architecture": "x64",
+    "MinimumRequiredOperatingSystem": "W10_1809"
+  },
+  "Supersedence": []
+}

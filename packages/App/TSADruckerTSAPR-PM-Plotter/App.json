@@ -43,7 +43,7 @@
     "SetupFile": "Invoke-AppDeployToolkit.exe",
     "SetupType": "EXE",
     "SourceFolder": "Source",
-    "Version": "1.0.2"
+    "Version": "1.0.3"
   },
   "Program": {
     "AllowAvailableUninstall": true,

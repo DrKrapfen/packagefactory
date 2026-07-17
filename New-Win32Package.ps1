@@ -231,11 +231,12 @@ process {
                         }
                         Copy-Item @params
 
+                        # The v4 Toolkit already ships Files and SupportFiles; -Force keeps this idempotent
                         Write-Information -MessageData "$($PSStyle.Foreground.Cyan)New path: '$([System.IO.Path]::Combine($SourcePath, "Files"))'"
-                        New-Item -Path $([System.IO.Path]::Combine($SourcePath, "Files")) -ItemType "Directory" | Out-Null
+                        New-Item -Path $([System.IO.Path]::Combine($SourcePath, "Files")) -ItemType "Directory" -Force | Out-Null
 
                         Write-Information -MessageData "$($PSStyle.Foreground.Cyan)New path: '$([System.IO.Path]::Combine($SourcePath, "SupportFiles"))'"
-                        New-Item -Path $([System.IO.Path]::Combine($SourcePath, "SupportFiles")) -ItemType "Directory" | Out-Null
+                        New-Item -Path $([System.IO.Path]::Combine($SourcePath, "SupportFiles")) -ItemType "Directory" -Force | Out-Null
 
                         # Update SourcePath to point to the PSAppDeployToolkit\Files directory
                         $SourcePath = [System.IO.Path]::Combine($SourcePath, "Files")
@@ -426,11 +427,16 @@ process {
                 #region Create the intunewin package
                 # Adjust params for New-IntuneWin32AppPackage using PSAppDeployToolkit
                 $IntuneWinSetupFile = $Manifest.PackageInformation.SetupFile
-                if ((Test-Path -Path $([System.IO.Path]::Combine($AppPath, "Source", "Invoke-AppDeployToolkit.ps1"))) -or
-                    (Test-Path -Path $([System.IO.Path]::Combine($AppPath, "Source", "Deploy-Application.ps1")))) {
-                    # PSAppDeployToolkit (v3 or v4): package the whole Source folder and use the toolkit
-                    # launcher as the setup file. Revert SourcePath from the '...\Source\Files' payload
-                    # directory back to the Source root where Deploy-Application.exe lives.
+                if (Test-Path -Path $([System.IO.Path]::Combine($AppPath, "Source", "Invoke-AppDeployToolkit.ps1"))) {
+                    # PSAppDeployToolkit v4: package the whole Source folder; the setup file is the
+                    # v4 toolkit launcher at the Source root. Revert SourcePath from the '...\Source\Files'
+                    # payload directory back to the Source root where Invoke-AppDeployToolkit.exe lives.
+                    $SourcePath = [System.IO.Path]::Combine($WorkingPath, $ApplicationName, "Source")
+                    $IntuneWinSetupFile = "Invoke-AppDeployToolkit.exe"
+                }
+                elseif (Test-Path -Path $([System.IO.Path]::Combine($AppPath, "Source", "Deploy-Application.ps1"))) {
+                    # PSAppDeployToolkit v3: package the whole Source folder; the setup file is the
+                    # v3 toolkit launcher at the Source root.
                     $SourcePath = [System.IO.Path]::Combine($WorkingPath, $ApplicationName, "Source")
                     $IntuneWinSetupFile = "Deploy-Application.exe"
                 }

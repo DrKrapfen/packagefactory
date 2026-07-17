@@ -8,7 +8,7 @@
   },
   "PackageInformation": {
     "SetupType": "EXE",
-    "SetupFile": "AcroRdrDCx642600121529_MUI.exe",
+    "SetupFile": "Invoke-AppDeployToolkit.exe",
     "Version": "26.001.21529",
     "SourceFolder": "Source",
     "OutputFolder": "Package",
@@ -25,9 +25,9 @@
     "PSPackageFactoryGuid": "a0042672-7240-4312-892e-39623320c0a3"
   },
   "Program": {
-    "InstallTemplate": "Deploy-Application.exe -DeploymentType \"Install\" -DeployMode \"Silent\"",
-    "InstallCommand": "Deploy-Application.exe -DeploymentType \"Install\" -DeployMode \"Silent\"",
-    "UninstallCommand": "Deploy-Application.exe -DeploymentType \"Uninstall\" -DeployMode \"Silent\"",
+    "InstallTemplate": "Invoke-AppDeployToolkit.exe -DeploymentType Install -DeployMode Silent",
+    "InstallCommand": "Invoke-AppDeployToolkit.exe -DeploymentType Install -DeployMode Silent",
+    "UninstallCommand": "Invoke-AppDeployToolkit.exe -DeploymentType Uninstall -DeployMode Silent",
     "InstallExperience": "system",
     "DeviceRestartBehavior": "suppress",
     "AllowAvailableUninstall": false
